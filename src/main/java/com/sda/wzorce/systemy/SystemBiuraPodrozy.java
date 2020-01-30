@@ -10,6 +10,9 @@ public class SystemBiuraPodrozy {
 
     private Map<String, String> mapaLotnisk = new HashMap<>();
     private Map<String, Integer> dlugoscLotu = new HashMap<>();
+    private Integer numerRezerwacji = 0;
+    private Map<Integer, Potwierdzenie> rezerwacjeWSystemie = new HashMap<>();
+
 
     private SystemBiuraPodrozy() {
         mapaLotnisk.put("Dubai", "DXB");
@@ -31,8 +34,10 @@ public class SystemBiuraPodrozy {
         Potwierdzenie potwierdzenieHotel = PelnomocnikSystemuHotelowego.INSTANCE.zarezerwujHotel(miastoDocelowe, dataWyjazdu, dataWyjazdu.plusDays(liczbaDni));
 
 //        PelnomocnikSystemuHotelowego.INSTANCE.sprawdzDate(dataWyjazdu)
-
-        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
+        numerRezerwacji++;
+        Potwierdzenie rezerwacja = new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
+        rezerwacjeWSystemie.put(numerRezerwacji, rezerwacja);
+        return rezerwacja;
     }
 
     public Potwierdzenie zarezerwujLotHotelAuto(String miastoDocelowe, LocalDate dataWyjazdu, int liczbaDni) {
@@ -44,7 +49,10 @@ public class SystemBiuraPodrozy {
         Potwierdzenie potwierdzenieHotel = PelnomocnikSystemuHotelowego.INSTANCE.zarezerwujHotel(miastoDocelowe, dataWyjazdu, dataWyjazdu.plusDays(liczbaDni));
         Potwierdzenie potwierdzenieAuto = SystemWynajmuAut.get().wynajmijAuto(miastoDocelowe, dataIGodzinaWylotu.plusHours(dlugoscLotu.get(miastoDocelowe)), liczbaDni);
 
-        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieAuto + "\n" + potwierdzenieHotel);
+        numerRezerwacji++;
+        Potwierdzenie rezerwacja = new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieAuto + "\n" + potwierdzenieHotel);
+        rezerwacjeWSystemie.put(numerRezerwacji, rezerwacja);
+        return rezerwacja;
     }
 
     public Potwierdzenie zarezerwujLotAuto(String miastoDocelowe, LocalDate dataWyjazdu, int liczbaDni) {
@@ -55,8 +63,10 @@ public class SystemBiuraPodrozy {
         Potwierdzenie potwierdzenieLot = SystemLotow.get().zarezerwujLot(mapaLotnisk.get(miastoDocelowe), dataIGodzinaWylotu);
         Potwierdzenie potwierdzenieAuto = SystemWynajmuAut.get().wynajmijAuto(miastoDocelowe, dataIGodzinaWylotu.plusHours(dlugoscLotu.get(miastoDocelowe)), liczbaDni);
 
-        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieAuto);
-
+        numerRezerwacji++;
+        Potwierdzenie rezerwacja = new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieLot + "\n" + potwierdzenieAuto);
+        rezerwacjeWSystemie.put(numerRezerwacji, rezerwacja);
+        return rezerwacja;
     }
 
     public Potwierdzenie zarezerwujPociagHotelTaxi(String miastoDocelowe, LocalDate dataWyjazdu, int liczbaDni) {
@@ -64,11 +74,31 @@ public class SystemBiuraPodrozy {
         LocalDateTime dataIGodzinaWyjazdu = LocalDateTime.of(dataWyjazdu.getYear(), dataWyjazdu.getMonth(),
                 dataWyjazdu.getDayOfMonth(), 8, 0);
 
-        Potwierdzenie potwierdzeniePociag = SystemBiletowPKP.get().zarezerwujPociag(miastoDocelowe,dataIGodzinaWyjazdu);
+        Potwierdzenie potwierdzeniePociag = SystemBiletowPKP.get().zarezerwujPociag(miastoDocelowe, dataIGodzinaWyjazdu);
         Potwierdzenie potwierdzenieHotel = PelnomocnikSystemuHotelowego.INSTANCE.zarezerwujHotel(miastoDocelowe, dataWyjazdu, dataWyjazdu.plusDays(liczbaDni));
         Potwierdzenie potwierdzenieTaxi = SystemTaxi.get().zamowTaksowke(miastoDocelowe, dataIGodzinaWyjazdu.plusHours(5));
 
-        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzeniePociag + "\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
+        numerRezerwacji++;
+        Potwierdzenie rezerwacja = new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzeniePociag + "\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
+        rezerwacjeWSystemie.put(numerRezerwacji, rezerwacja);
+        return rezerwacja;
 
+    }
+
+    public void anulujRezerwacje(Integer numerRezerwacji) {
+        if (rezerwacjeWSystemie.containsKey(numerRezerwacji)) {
+            rezerwacjeWSystemie.remove(numerRezerwacji);
+            System.out.println("Rezerwacja numer " + numerRezerwacji + " została anulowana\n");
+        } else {
+            throw new IllegalArgumentException("Rezerwacja o podanym numerze nie istnieje");
+        }
+    }
+
+    public void wyswietlRezerwacje(Integer numerRezerwacji) {
+        if (rezerwacjeWSystemie.containsKey(numerRezerwacji)) {
+            System.out.println(rezerwacjeWSystemie.get(numerRezerwacji));
+        } else {
+            throw new IllegalArgumentException("Rezerwacja o podanym numerze nie istnieje");
+        }
     }
 }

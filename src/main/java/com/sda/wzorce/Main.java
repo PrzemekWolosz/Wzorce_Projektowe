@@ -15,12 +15,17 @@ public class Main {
         // TODO -> DONE 2) pozwól na pozostałe sensowne warianty wycieczek (np. lot+hotel+wynajemAuta, lot+wynajemAuta, hotel+taxi)
 
 //        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujLotHotelAuto("Nowy Jork", LocalDate.of(2020, 3, 18), 10));
+//
+//        SystemBiuraPodrozy.INSTANCE.anulujRezerwacje(2);
+//        SystemBiuraPodrozy.INSTANCE.wyswietlRezerwacje(2);
+
+
 //        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujLotAuto("Warszawa", LocalDate.of(2020, 4, 19), 1));
 //        System.out.println();
-        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujPociagHotelTaxi("Warszawa", LocalDate.now().plusDays(1), 3));
+//        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujPociagHotelTaxi("Warszawa", LocalDate.now().plusDays(1), 3));
 
-        // TODO 3) dodaj "integrację" z "innymi" systemami (np. system rezerwacji biletów PKP)
-        // TODO 4) dodaj możliwość odwoływania rezerwacji (podpowiedź: należałoby dodac w każdym systemie przechowywanie wydanych "potwierdzeń" i pozwolić na ich anulowanie)
+        // TODO -> DONE 3) dodaj "integrację" z "innymi" systemami (np. system rezerwacji biletów PKP)
+        // TODO -> DONE 4) dodaj możliwość odwoływania rezerwacji (podpowiedź: należałoby dodac w każdym systemie przechowywanie wydanych "potwierdzeń" i pozwolić na ich anulowanie)
 
         // TODO Ćwiczenie: Proxy (pełnomocnik)
         // TODO -> DONE 1) stwórz pełnomocnika "sprytne odwołanie", który będzie zliczał, ile rezerwacji zostało wykonanych w systemie hotelowym. Prawidłowo obsłuż również rezerwacje anulowane
