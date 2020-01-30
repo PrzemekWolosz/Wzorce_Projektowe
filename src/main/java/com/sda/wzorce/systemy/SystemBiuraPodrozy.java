@@ -59,15 +59,16 @@ public class SystemBiuraPodrozy {
 
     }
 
-    public Potwierdzenie zarezerwujHotelTaxi(String miastoDocelowe, LocalDate dataWyjazdu, int liczbaDni) {
+    public Potwierdzenie zarezerwujPociagHotelTaxi(String miastoDocelowe, LocalDate dataWyjazdu, int liczbaDni) {
 
         LocalDateTime dataIGodzinaWyjazdu = LocalDateTime.of(dataWyjazdu.getYear(), dataWyjazdu.getMonth(),
                 dataWyjazdu.getDayOfMonth(), 8, 0);
 
+        Potwierdzenie potwierdzeniePociag = SystemBiletowPKP.get().zarezerwujPociag(miastoDocelowe,dataIGodzinaWyjazdu);
         Potwierdzenie potwierdzenieHotel = PelnomocnikSystemuHotelowego.INSTANCE.zarezerwujHotel(miastoDocelowe, dataWyjazdu, dataWyjazdu.plusDays(liczbaDni));
-        Potwierdzenie potwierdzenieTaxi = SystemTaxi.get().zamowTaksowke(miastoDocelowe, dataIGodzinaWyjazdu);
+        Potwierdzenie potwierdzenieTaxi = SystemTaxi.get().zamowTaksowke(miastoDocelowe, dataIGodzinaWyjazdu.plusHours(5));
 
-        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
+        return new Potwierdzenie("Rezerwacja wycieczki:\n" + potwierdzeniePociag + "\n" + potwierdzenieTaxi + "\n" + potwierdzenieHotel);
 
     }
 }
