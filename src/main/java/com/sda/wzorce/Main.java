@@ -11,6 +11,8 @@ public class Main {
         // TODO -> DONE 1) stwórz fasadę i użyj jej do rezerwacji kompleksowej wycieczki (składającej się z lotu, hotelu i przejazdu taxi)
 
 //        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujWycieczke("Dubai", LocalDate.of(2020, 6, 10), 30));
+//        System.out.println(SystemBiuraPodrozy.INSTANCE.zarezerwujWycieczke("Dubai", LocalDate.of(2020, 6, 7), 5));
+
 
         // TODO -> DONE 2) pozwól na pozostałe sensowne warianty wycieczek (np. lot+hotel+wynajemAuta, lot+wynajemAuta, hotel+taxi)
 
@@ -29,8 +31,8 @@ public class Main {
 
         // TODO Ćwiczenie: Proxy (pełnomocnik)
         // TODO -> DONE 1) stwórz pełnomocnika "sprytne odwołanie", który będzie zliczał, ile rezerwacji zostało wykonanych w systemie hotelowym. Prawidłowo obsłuż również rezerwacje anulowane
-        // TODO 2) niech pełnomocnik monitoruje liczbę nakładających się rezerwacji. Jeżeli w systemie hotelowym będa w tym samym czasie dwie rezerwacje (które nakładają się chociaż jednym dniem), to przy dodaniu trzeciej (nakładającej) niech wyświelta ostrzeżenie, że jej cena może być podwyższona
-        // TODO 3) zmodyfikuj pełnomocnika tak, aby był również proxy ochraniającym - w sytuacji powyżej niech odmówi wywołania metody rezerwującej hotel
+        // TODO -> DONE 2) niech pełnomocnik monitoruje liczbę nakładających się rezerwacji. Jeżeli w systemie hotelowym będa w tym samym czasie dwie rezerwacje (które nakładają się chociaż jednym dniem), to rzuca wyjątek
+        // TODO -> DONE  3) zmodyfikuj pełnomocnika tak, aby był również proxy ochraniającym - w sytuacji powyżej niech odmówi wywołania metody rezerwującej hotel
 
         // TODO Ćwiczenie: Obserwator
         // TODO 1) Rozbuduj system korporacji taxi o listę wszystkich taksówkarzy, któzy się w niej zarejestrowali.
